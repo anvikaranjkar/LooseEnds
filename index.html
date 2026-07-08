@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loose Ends — a demo</title>
+<meta name="description" content="Loose Ends: what if losing someone didn't come with forty logins to recover?" />
+<link rel="icon" href="assets/logo.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="room">
+  <img class="room-bg" src="assets/room-bg.jpg" alt="" />
+  <div class="rain"></div>
+  <div class="dust" id="dust"></div>
+  <div class="vignette"></div>
+
+  <!-- ===================== MONITOR ===================== -->
+  <div class="monitor" id="monitor">
+    <div class="monitor-bezel">
+      <div class="brand-plate">CITIZEN&nbsp;·&nbsp;PC</div>
+      <div class="power-led" id="powerLed"></div>
+
+      <div class="screen" id="screen">
+
+        <!-- BIOS state -->
+        <div class="state state-bios" id="state-bios">
+          <pre class="bios-text" id="biosText"></pre>
+        </div>
+
+        <!-- XP-style boot state -->
+        <div class="state state-boot" id="state-boot">
+          <div class="boot-mark">Starting up</div>
+          <div class="boot-bar"><span></span><span></span><span></span><span></span></div>
+        </div>
+
+        <!-- Desktop state -->
+        <div class="state state-desktop active" id="state-desktop">
+          <div class="wallpaper" style="background-image:url('assets/wallpaper.jpg')"></div>
+          <div class="scanlines"></div>
+
+          <div class="stress-meter" id="stressMeter" title="Administrative Fatigue">
+            <span class="stress-label">Administrative Fatigue</span>
+            <div class="stress-track"><div class="stress-fill" id="stressFill"></div></div>
+          </div>
+
+          <div class="desktop-icons" id="desktopIcons">
+            <button class="d-icon" data-win="mycomputer">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="13" rx="1" fill="#c9d6e3" stroke="#334" stroke-width="1"/><rect x="4" y="6" width="16" height="8" fill="#2b4a6f"/><rect x="9" y="18" width="6" height="2" fill="#8a97a3"/><rect x="6" y="20" width="12" height="1.5" rx="0.75" fill="#8a97a3"/></svg>
+              <span>My Computer</span>
+            </button>
+            <button class="d-icon" data-win="documents">
+              <svg viewBox="0 0 24 24"><path d="M4 4h9l3 3v13H4z" fill="#f2d478" stroke="#8a6d1f" stroke-width="1"/><path d="M13 4v3h3" fill="none" stroke="#8a6d1f" stroke-width="1"/></svg>
+              <span>My Documents</span>
+            </button>
+            <button class="d-icon" data-win="certificate">
+              <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" fill="#f2ede1" stroke="#8a7a58" stroke-width="1"/><rect x="7" y="5" width="10" height="1.4" fill="#8a7a58"/><rect x="7" y="8" width="10" height="1.4" fill="#8a7a58"/><rect x="7" y="11" width="6" height="1.4" fill="#8a7a58"/></svg>
+              <span>Death_Certificate.jpg</span>
+            </button>
+            <button class="d-icon" data-win="instagram">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="#e3d6c5" stroke="#7a6a52" stroke-width="1"/><circle cx="12" cy="12" r="4" fill="none" stroke="#7a6a52" stroke-width="1.4"/><circle cx="17" cy="7" r="1.1" fill="#7a6a52"/></svg>
+              <span>Instagram</span>
+            </button>
+            <button class="d-icon" data-win="netflix">
+              <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1" fill="#111" stroke="#555" stroke-width="1"/><path d="M8 6v9M8 6l4 9M12 6l4 9v-9" fill="none" stroke="#c1443a" stroke-width="1.3"/><rect x="7" y="19" width="10" height="1.6" fill="#555"/></svg>
+              <span>Netflix</span>
+            </button>
+            <button class="d-icon" data-win="mygov">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="#4a7a9c" stroke-width="1.4"/><path d="M12 3v18M3 12h18" stroke="#4a7a9c" stroke-width="1" /></svg>
+              <span>Internet Explorer</span>
+            </button>
+            <button class="d-icon" data-win="bin">
+              <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7z" fill="#c9d6e3" stroke="#334" stroke-width="1"/><path d="M9 5h6l1 3H8z" fill="#8a97a3" stroke="#334" stroke-width="1"/></svg>
+              <span>Recycle Bin</span>
+            </button>
+          </div>
+
+          <!-- ===== WINDOWS (templates, shown on demand) ===== -->
+          <div class="win" data-window="mycomputer" hidden>
+            <div class="win-title"><span>My Computer</span><div class="win-btns"><button class="wclose">×</button></div></div>
+            <div class="win-body plain">
+              <p>Local Disk (C:) — 2% free</p>
+              <p>Removable Disk (E:) — empty</p>
+              <p class="muted">Last defragmented: never.</p>
+            </div>
+          </div>
+
+          <div class="win" data-window="bin" hidden>
+            <div class="win-title"><span>Recycle Bin</span><div class="win-btns"><button class="wclose">×</button></div></div>
+            <div class="win-body plain">
+              <p class="muted">It's empty.</p>
+              <p class="muted">Some things you don't get to take back.</p>
+            </div>
+          </div>
+
+          <div class="win" data-window="documents" hidden>
+            <div class="win-title"><span>My Documents</span><div class="win-btns"><button class="wclose">×</button></div></div>
+            <div class="win-body filelist">
+              <button class="file-row" data-locked="1">
+                <span class="file-name">passwords.txt</span><span class="file-tag">locked</span>
+              </button>
+              <button class="file-row" data-locked="1">
+                <span class="file-name">Insurance_Policy_2018.pdf</span><span class="file-tag">locked</span>
+              </button>
+              <button class="file-row" data-locked="1">
+                <span class="file-name">MyGov_login.txt</span><span class="file-tag">locked</span>
+              </button>
+              <button class="file-row" data-locked="1">
+                <span class="file-name">Super_Fund_details.docx</span><span class="file-tag">locked</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="win winlg" data-window="certificate" hidden>
+            <div class="win-title"><span>Death_Certificate_JohnCitizen.jpg — Picture and Fax Viewer</span><div class="win-btns"><button class="wclose">×</button></div></div>
+            <div class="win-body imgview">
+              <img src="assets/death-certificate.jpg" alt="Death certificate" />
+            </div>
+          </div>
+
+          <div class="win winlg" data-window="instagram" hidden>
+            <div class="win-title"><span>Internet Explorer — instagram.com/johncitizen</span><div class="win-btns"><button class="wclose">×</button></div></div>
+            <div class="win-body browser">
+              <div class="addr-bar">🔒 instagram.com/johncitizen</div>
+              <img src="assets/instagram.jpg" alt="John Citizen's Instagram profile" />
+              <p class="cap-line">Last post: 3 years ago. No one has updated this. No one can log in, either.</p>
+            </div>
+          </div>
+
+          <div class="win winlg" data-window="netflix" hidden>
+            <div class="win-title"><span>Internet Explorer — netflix.com/browse</span><div class="win-btns"><button class="wclose">×</button></div></div>
+            <div class="win-body browser">
+              <div class="addr-bar">🔒 netflix.com/browse</div>
+              <img src="assets/netflix.jpg" alt="Netflix profile selection" id="netflixImg" />
+              <p class="cap-line">Click a profile.</p>
+            </div>
+          </div>
+
+          <div class="win" data-window="mygov" hidden>
+            <div class="win-title"><span>Internet Explorer — mygov.gov.au</span><div class="win-btns"><button class="wclose">×</button></div></div>
+            <div class="win-body browser">
+              <div class="addr-bar">🔒 my.gov.au/session</div>
+              <div class="loading-block">
+                <div class="spinner"></div>
+                <p>This page cannot be displayed.</p>
+                <p class="muted">Your session has expired. Please call between 9am–5pm AEST and hold.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- toast stack -->
+          <div class="toast-stack" id="toastStack"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="desk-glow"></div>
+  </div>
+
+  <!-- hidden trigger: a small keyhole glint on the desk, appears once fatigue is high enough -->
+  <button class="hidden-trigger" id="hiddenTrigger" hidden aria-label="???">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="4" fill="#e8b84b"/><rect x="10.5" y="12" width="3" height="7" fill="#e8b84b"/></svg>
+  </button>
+</div>
+
+<!-- ===================== FINAL REVEAL ===================== -->
+<div class="reveal" id="reveal" hidden>
+  <div class="reveal-inner">
+    <img src="assets/logo.svg" alt="Loose Ends" class="reveal-logo" />
+    <p class="reveal-line">Grief shouldn't come with paperwork.</p>
+    <p class="reveal-sub">One verified executor. Every institution notified. Once.</p>
+    <button class="reveal-restart" id="restartBtn">Restart demo</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
